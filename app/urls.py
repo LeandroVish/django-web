@@ -10,9 +10,10 @@ from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from core.views import UserViewSet
+from core.views import CategoriaViewSet
 
 router = DefaultRouter()
-
+router.register(r"categorias", CategoriaViewSet)
 router.register(r"users", UserViewSet, basename="users")
 
 urlpatterns = [
