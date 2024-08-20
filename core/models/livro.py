@@ -14,7 +14,7 @@ class Livro(models.Model):
     preco = models.DecimalField(max_digits=7, decimal_places=2, default=0, null=True, blank=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT, related_name="livros", blank=True, null=True)
     editora = models.ForeignKey(Editora, on_delete=models.PROTECT, related_name="livros", null=True, blank=True)
-    autor = models.ManyToManyField(Autor, related_name="livros")
+    autores = models.ManyToManyField(Autor, related_name="livros")
     capa = models.ForeignKey(
         Image,
         related_name="+",
