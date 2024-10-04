@@ -1,4 +1,10 @@
-from rest_framework.serializers import CharField, ModelSerializer, SerializerMethodField
+from rest_framework.serializers import (
+    CharField,
+    CurrentUserDefault,
+    HiddenField,
+    ModelSerializer,
+    SerializerMethodField,
+)
 
 from core.models import Compra, ItensCompra
 
@@ -14,6 +20,7 @@ class ItensCompraSerializer(ModelSerializer):
         fields = ("livro", "quantidade", "total")
         depth = 1
 
+
 class ListarItensCompraSerializer(ModelSerializer):
     livro = CharField(source="livro.titulo", read_only=True)
 
@@ -22,6 +29,7 @@ class ListarItensCompraSerializer(ModelSerializer):
         fields = ("quantidade", "livro")
         depth = 1
 
+
 class ListarCompraSerializer(ModelSerializer):
     usuario = CharField(source="usuario.email", read_only=True)
     itens = ListarItensCompraSerializer(many=True, read_only=True)
@@ -29,6 +37,7 @@ class ListarCompraSerializer(ModelSerializer):
     class Meta:
         model = Compra
         fields = ("id", "usuario", "itens")
+
 
 class CompraSerializer(ModelSerializer):
     class Meta:
@@ -47,6 +56,7 @@ class CriarEditarItensCompraSerializer(ModelSerializer):
 
 class CriarEditarCompraSerializer(ModelSerializer):
     itens = CriarEditarItensCompraSerializer(many=True)
+    usuario = HiddenField(default=CurrentUserDefault())
 
     class Meta:
         model = Compra

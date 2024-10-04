@@ -11,4 +11,3 @@ from .compra import (
     CriarEditarItensCompraSerializer,
     ListarItensCompraSerializer,
 )
-
