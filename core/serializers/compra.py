@@ -14,6 +14,21 @@ class ItensCompraSerializer(ModelSerializer):
         fields = ("livro", "quantidade", "total")
         depth = 1
 
+class ListarItensCompraSerializer(ModelSerializer):
+    livro = CharField(source="livro.titulo", read_only=True)
+
+    class Meta:
+        model = ItensCompra
+        fields = ("quantidade", "livro")
+        depth = 1
+
+class ListarCompraSerializer(ModelSerializer):
+    usuario = CharField(source="usuario.email", read_only=True)
+    itens = ListarItensCompraSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Compra
+        fields = ("id", "usuario", "itens")
 
 class CompraSerializer(ModelSerializer):
     class Meta:
